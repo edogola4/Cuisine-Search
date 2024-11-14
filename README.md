@@ -1,4 +1,4 @@
-![Preview](https://github.com/Jupiter-Github/Recipe-Finder/assets/165056474/dfa3d7a2-e5be-4fae-9eff-771a32972d76)
+![Preview](https://edogola4.github.io/Cuisine-Search/)
 
 # Cuisine Search Web Application
 
@@ -13,8 +13,8 @@ Discover what’s trending, build your grocery list, and browse by ingredient to
 - **Local Storage**: Keep your saved recipes securely in your browser’s local storage.
 - **Responsive Design**: Enjoy Recipe Finder on any device, with a fully responsive layout.
 
-## View the App (Hosted on Vercel)
-[Recipe Finder on Vercel](https://recipe-finder-rho-gilt.vercel.app/)
+## View the App (Hosted on Github pages)
+[Cuisine Search on gh pages](https://edogola4.github.io/Cuisine-Search/)
 
 ## Tools Used
 - **React**: For a dynamic, component-based user interface
