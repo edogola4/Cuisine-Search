@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Cuisine-Search/static/css/main.91f469a6.css",
+    "main.js": "/Cuisine-Search/static/js/main.f0bfda9e.js",
+    "static/js/453.d2142cf0.chunk.js": "/Cuisine-Search/static/js/453.d2142cf0.chunk.js",
+    "index.html": "/Cuisine-Search/index.html",
+    "main.91f469a6.css.map": "/Cuisine-Search/static/css/main.91f469a6.css.map",
+    "main.f0bfda9e.js.map": "/Cuisine-Search/static/js/main.f0bfda9e.js.map",
+    "453.d2142cf0.chunk.js.map": "/Cuisine-Search/static/js/453.d2142cf0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.91f469a6.css",
+    "static/js/main.f0bfda9e.js"
+  ]
+}
