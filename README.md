@@ -1,4 +1,4 @@
-![Preview](https://edogola4.github.io/Cuisine-Search/)
+![Preview](https://edogola4.github.io/Cuisine-Search/img/preview.png)
 
 # Cuisine Search Web Application
 
