@@ -1,62 +1,28 @@
-/* Reset all elements */
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif; /* Choose a readable font for your app */
+/* Main.css */
+.main-content {
+  padding-top: 64px; /* Adjust based on NavBar height */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Smooth fade-in effect for route transitions */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* Styling for images */
-  .displayImage {
-    height: 100%;
-    width: 100%;
-    object-fit: cover; /* Ensures images fit within their containers */
-    border-radius: 8px; /* Rounded corners for a modern look */
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Styling for the card container (middle section) */
-  .displayCardMiddle {
-    width: 390px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px; /* Adds space between items for better clarity */
-    margin-bottom: 20px; /* Adds space below for better layout separation */
-  }
-  
-  /* Styling for individual card components */
-  .displayCard {
-    padding-left: 10px;
-    width: 500px;
-    background-color: #fff; /* Light background for clean look */
-    border-radius: 8px; /* Rounded corners for cards */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-  }
-  
-  /* Hover effect for cards */
-  .displayCard:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-  }
-  
-  /* Responsive design for small screens (mobile-first approach) */
-  @media (max-width: 426px) {
-    .displayCardMiddle {
-      flex-direction: column;
-      margin: 5px 0;
-      width: 100%;
-    }
-    .displayCard {
-      width: 100%;
-      padding-left: 15px; /* Adds space around the card */
-    }
-  }
-  
-  /* Medium screen adjustments */
-  @media (max-width: 770px) {
-    .displayCardMiddle {
-      margin: 10px 0;
-    }
-  }
-  
+}
+
+/* Loading screen styling */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #555;
+  font-size: 1.5em;
+  font-weight: bold;
+}

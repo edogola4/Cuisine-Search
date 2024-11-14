@@ -10,6 +10,7 @@ import {
   Typography,
   InputBase,
   Badge,
+  useTheme,
 } from "@mui/material";
 import { Restaurant, Home, Favorite, Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -19,16 +20,18 @@ import { fetchRecipe } from "../Redux/RecipeActions";
 const SearchDiv = styled("form")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha("#a2c8f5", 0.25),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha("#a2c8f5", 0.35),
   },
+  transition: "background-color 0.3s ease, box-shadow 0.3s ease",
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
   },
+  boxShadow: "0 0 8px rgba(255, 239, 199, 0.4)",
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -39,42 +42,42 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  color: "#a2c8f5",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "#fff",
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
+    borderRadius: "8px",
+    backgroundColor: alpha("#9de1f2", 0.2),
+    "&:focus": {
+      boxShadow: `0 0 10px rgba(255, 165, 0, 0.6)`,
+      width: "22ch",
     },
   },
 }));
 
 const NavBar = () => {
-  let searchItem = useSelector((state) => state.searchItem);
+  const theme = useTheme();
+  const searchItem = useSelector((state) => state.searchItem);
   const [recipeName, setRecipe] = useState("");
   const favouriteRecipe = useSelector((state) => state.favouriteRecipe);
   const [badgeValue, setBadgeValue] = useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setRecipe(searchItem);
-    
   }, [searchItem]);
 
   useEffect(() => {
     setBadgeValue(favouriteRecipe.length);
   }, [favouriteRecipe]);
 
-  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchRecipe(recipeName));
@@ -83,49 +86,79 @@ const NavBar = () => {
   };
 
   return (
-    <>
-      <Box sx={{ flexGrow: 1, height: "64px" }}>
-        <AppBar position="fixed">
-          <Toolbar justifyContent=" space-evenly">
-            <Restaurant sx={{ display: { md: "flex" }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          background: `linear-gradient(90deg, #ff6f61, #ffefc7)`,
+          boxShadow: "0 8px 16px rgba(255, 111, 97, 0.3)",
+          animation: "fadeIn 1s ease-in-out",
+        }}
+      >
+        <Toolbar>
+          <Restaurant
+            sx={{
+              display: { md: "flex" },
+              mr: 1,
+              color: "white",
+              animation: "pulse 2s infinite",
+            }}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              fontWeight: "bold",
+              color: "#fff",
+              textShadow: "1px 1px 4px rgba(0,0,0,0.3)",
+            }}
+          >
+            Cuisine Search
+          </Typography>
+          <SearchDiv onSubmit={handleSubmit}>
+            <SearchIconWrapper>
+              <Search />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search delicious recipes..."
+              inputProps={{ "aria-label": "search" }}
+              value={recipeName}
+              onChange={(e) => setRecipe(e.target.value)}
+            />
+          </SearchDiv>
+          <Link to="/" style={{ color: "inherit" }}>
+            <IconButton
+              color="inherit"
+              sx={{
+                "&:hover": { color: "#ffefc7", transform: "scale(1.1)" },
+                transition: "transform 0.2s ease",
+              }}
             >
-              Recipe Finder
-            </Typography>
-            <SearchDiv onSubmit={handleSubmit}>
-              <SearchIconWrapper onClick={handleSubmit}>
-                <Search />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                value={recipeName}
-                onChange={(e) => {
-                  setRecipe(e.target.value);
+              <Home />
+            </IconButton>
+          </Link>
+          <Link to="Favourite" style={{ color: "inherit" }}>
+            <IconButton color="inherit">
+              <Badge
+                badgeContent={badgeValue}
+                color="error"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    animation: "pulse 2s infinite",
+                    backgroundColor: "#f57c00",
+                  },
                 }}
-              />
-            </SearchDiv>
-            <Link to="/" style={{ color: "inherit" }}>
-              <IconButton color="inherit">
-                <Home />
-              </IconButton>
-            </Link>
-
-            <Link to="Favourite" style={{ color: "inherit" }}>
-              <IconButton color="inherit">
-                <Badge badgeContent={badgeValue} color="error">
-                  <Favorite />
-                </Badge>
-              </IconButton>
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </>
+              >
+                <Favorite />
+              </Badge>
+            </IconButton>
+          </Link>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

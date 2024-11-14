@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Snackbar, Slide, IconButton } from "@mui/material";
+import { Button, Snackbar, Slide, IconButton, Typography } from "@mui/material";
+import { Close, Search } from "@mui/icons-material";
 
-import { Close } from "@mui/icons-material";
 const SearchListAlert = () => {
   const [open, setOpen] = useState(true);
 
@@ -10,32 +10,32 @@ const SearchListAlert = () => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
+
   function SlideTransition(props) {
     return <Slide {...props} direction="up" />;
   }
+
   const action = (
     <>
-      <Link
-        to="/SearchList"
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <Button   onClick={handleClose}>
-           List
+      <Link to="/SearchList" style={{ textDecoration: "none", color: "inherit" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClose}
+          startIcon={<Search />}
+          sx={{ marginRight: 1 }}
+        >
+          View Full List
         </Button>
       </Link>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
+      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
         <Close fontSize="small" />
       </IconButton>
     </>
   );
+
   return (
     <>
       <Snackbar
@@ -43,11 +43,21 @@ const SearchListAlert = () => {
         TransitionComponent={SlideTransition}
         autoHideDuration={7000}
         onClose={handleClose}
-        message="Search terms are limited.Click here to get complete item list"
+        message={
+          <Typography variant="body2" style={{ fontWeight: 500 }}>
+            Search results may be limited. Click "View Full List" to see all available items!
+          </Typography>
+        }
         action={action}
-        
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#333",
+            color: "#fff",
+          },
+        }}
       />
     </>
   );
 };
+
 export default SearchListAlert;

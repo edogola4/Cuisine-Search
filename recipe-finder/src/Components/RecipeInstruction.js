@@ -45,12 +45,12 @@ const RecipeInstruction = () => {
 
   return (
     <>
-      {" "}
       <CssBaseline />
       <Container
         sx={{
-          mt: { xs: 0, sm: 5, md: 5 },
+          mt: { xs: 2, sm: 5 },
           width: { sm: "100%" },
+          textAlign: "center",
         }}
       >
         <Box
@@ -58,7 +58,9 @@ const RecipeInstruction = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: { xs: "column", md: "row", lg: "row", xl: "row" },
+            flexDirection: { xs: "column", md: "row" },
+            gap: 3,
+            animation: "fadeIn 0.5s ease-in-out",
           }}
         >
           <Paper
@@ -67,76 +69,92 @@ const RecipeInstruction = () => {
               width: { xs: "100%", md: 550, lg: 450 },
               height: { xs: 300, sm: 410, md: 350, lg: 300 },
               mb: { xs: 2 },
-              mr: { md: 3 },
-              objectFit: "cover",
+              overflow: "hidden",
+              transition: "transform 0.3s ease",
+              "&:hover": {
+                transform: "scale(1.02)",
+              },
             }}
           >
-            <img className="displayImage" src={image_url} alt="Recipe" />
+            <img
+              src={image_url}
+              alt="Recipe"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "4px",
+              }}
+            />
           </Paper>
-          <div className="displayCard">
-            <Typography variant="h2">{title}</Typography>
-            <Typography variant="h5" color="textSecondary">
-              {publisher}
+          <Box
+            sx={{
+              textAlign: { xs: "center", md: "left" },
+              maxWidth: { md: 400 },
+              padding: 2,
+              animation: "slideIn 0.6s ease-in-out",
+            }}
+          >
+            <Typography variant="h2" fontWeight="bold" mb={1}>
+              {title}
             </Typography>
-            <div className="displayCardMiddle">
-              <Toolbar
-                disableGutters
-                sx={{
-                  minHeight: { xs: 0, md: 56 },
-                }}
-              >
-                <Person />
-                <Typography noWrap variant="h6">
-                  Serving size:{servings}
+            <Typography variant="h6" color="textSecondary" mb={2}>
+              By CuisineSearch
+            </Typography>
+            <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+              <Toolbar disableGutters sx={{ minHeight: "unset" }}>
+                <Person color="primary" sx={{ mr: 1 }} />
+                <Typography variant="h6">Servings: {servings}</Typography>
+              </Toolbar>
+              <Toolbar disableGutters sx={{ minHeight: "unset" }}>
+                <AccessTime color="primary" sx={{ mr: 1 }} />
+                <Typography variant="h6">
+                  Cooking Time: {cooking_time} mins
                 </Typography>
               </Toolbar>
-              <Toolbar
-                disableGutters
+            </Box>
+            <Stack direction="row" spacing={2} justifyContent="center">
+              <Button
+                variant="contained"
+                color="primary"
+                href={source_url}
+                target="_blank"
                 sx={{
-                  minHeight: { xs: 0, md: 56 },
+                  backgroundColor: "#FF7043",
+                  "&:hover": {
+                    backgroundColor: "#FF5722",
+                  },
                 }}
               >
-                <AccessTime />
-                <Typography noWrap variant="h6">
-                  Cooking time:{cooking_time}mins
-                </Typography>
-              </Toolbar>
-            </div>
-            <div>
-              <Stack
-                direction={{ xs: "column", sm: "row", md: "row" }}
-                spacing={2}
-                alignItems={{ xs: "flex-start" }}
+                Detail Recipe
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleAddClick}
+                sx={{
+                  backgroundColor: "#66BB6A",
+                  "&:hover": {
+                    backgroundColor: "#43A047",
+                  },
+                }}
               >
-                {" "}
-                <Button variant="outlined" href={source_url} target="_blank">
-                  Detail Recipe
-                </Button>
-                <Button variant="outlined" onClick={handleAddClick}>
-                  Add to Favourite
-                </Button>
-                <Alert open={showalert} setOpen={setShowAlert} />
-              </Stack>
-            </div>
-          </div>
+                Add to Favourite
+              </Button>
+              <Alert open={showalert} setOpen={setShowAlert} />
+            </Stack>
+          </Box>
         </Box>
-        <Box
-          component="div"
-          sx={{
-            my: 4,
-          }}
-        >
-          <Typography variant="h3" align="center">
+        <Box sx={{ my: 4 }}>
+          <Typography variant="h3" align="center" fontWeight="bold" mb={2}>
             Ingredients
           </Typography>
-          <hr />
-          <ul>
+          <hr style={{ width: "60%", margin: "auto", marginBottom: "20px" }} />
+          <ul style={{ listStyleType: "none", padding: 0, textAlign: "center" }}>
             {ingredients?.map((value, index) => (
-              <li key={index}>
-                <Typography variant="h6">
-                  {value.quantity}
-                  {value.unit} {""}
-                  {value.description}
+              <li key={index} style={{ marginBottom: "10px" }}>
+                <Typography variant="h6" sx={{ transition: "color 0.2s" }}>
+                  {value.quantity} {value.unit} {value.description}
                 </Typography>
               </li>
             ))}
